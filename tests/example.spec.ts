@@ -1,9 +1,15 @@
 import { test, expect } from "./fixtures";
 
-test.describe("Options page", () => {
-	test("Should show options page", async ({ page, extensionId }) => {
-		await page.goto(`chrome-extension://${extensionId}/options.html`);
+test.describe("Both tests should work", () => {
+	test.describe("This one has no serviceWorker fixture dependency", () => {
+		test("This will work", async () => {
+			await expect(true).toBe(true);
+		});
+	});
 
-		await expect(page).toHaveScreenshot({ fullPage: true });
+	test.describe("The one with the serviceWorker dependency", () => {
+		test("This will fail in Docker", async ({ serviceWorker }) => {
+			await expect(true).toBe(true);
+		});
 	});
 });
